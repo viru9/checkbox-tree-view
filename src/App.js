@@ -1,7 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import CheckBoxTree from './component/checkBoxTree';
+import CheckBoxTree from './components/checkBoxTree/component/checkBoxTree';
 
 function App() {
   return (
