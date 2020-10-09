@@ -6,6 +6,7 @@ A simple UI tree of checkboxes using ReactJs.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You’ll need to have Node >= 8.10 and npm >= 5.6 on your machine. 
 
 ## Available Scripts
 
