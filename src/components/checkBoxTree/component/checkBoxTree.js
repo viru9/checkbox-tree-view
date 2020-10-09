@@ -35,7 +35,7 @@ class checkBoxTree extends Component {
         return data.map((value)=>{
             return  value.nodes ?
                 <li key={value.id}>
-                    <label className="container">
+                    <label className="checkbox-label">
                     <input id={value.id} name={value.name} type="checkbox" className="checkmark" 
                     value={value.name || ''}
                     checked={value.isChecked ? value.isChecked : false } 
@@ -53,7 +53,7 @@ class checkBoxTree extends Component {
                 </li>
                     :
                  <li key={value.id}> 
-                    <label className="container">
+                    <label className="checkbox-label">
                     <input id={value.id} name={value.name} type="checkbox" className="checkmark" 
                     value={value.name || ''}
                     checked={value.isChecked ? value.isChecked : false }
@@ -67,7 +67,7 @@ class checkBoxTree extends Component {
 
     render(){
         return (
-            <div>
+            <div className="container">
                 <ul className="ul-nostyle">
                 {this.renderTreeView(this.state.treeData)}
                 </ul>
