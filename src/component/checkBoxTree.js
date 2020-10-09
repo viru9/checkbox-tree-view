@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './checkBoxTree.css';
-import response from './response';
+import response, { data } from './response';
 
 class checkBoxTree extends Component {
 
@@ -8,15 +8,15 @@ class checkBoxTree extends Component {
         super(props);
         this.state = {
             treeData : []
-        }
+        };
     }
 
     convertTree(parent, data){
         parent.map((paren,index) => {
+            paren.isChecked=false;
             let newParent = [];
             data.map((value) => {
                 if(paren.id===value.parent){
-                    console.log('indes',index)
                     parent[index].nodes ? 
                     parent[index].nodes.includes(value) && parent[index].nodes.push(value) : 
                     parent[index].nodes = []; parent[index].nodes.push(value)
@@ -41,8 +41,44 @@ class checkBoxTree extends Component {
 
         let formatedResponse = this.convertTree(parent, data);
         this.setState({treeData:formatedResponse});
-}
+    }
     
+    loopCheckBoxAction = (value,isChecked) =>{
+        value.nodes.map((value)=>{
+            isChecked ? value.isChecked = true : value.isChecked = false
+            if(value.nodes){
+                this.loopCheckBoxAction(value,isChecked);
+            }
+        });
+    }
+
+    loopTreeData = (dataTree,id,isChecked) =>{
+
+        id!== undefined && dataTree.map((value)=>{
+
+            if(value.id==id){
+                console.log('loopTreeData ',value)
+
+                isChecked ? value.isChecked = true : value.isChecked = false;
+                
+                if(value.nodes){
+                    this.loopCheckBoxAction(value,isChecked);
+                }
+            }
+            else {
+                if(value.nodes){
+                    this.loopTreeData(value.nodes,id,isChecked)
+                }
+            }
+            
+        });
+    }
+
+    onCheckBoxChange = (id,isChecked) => {
+        let dataTree = this.state.treeData;
+        this.loopTreeData(dataTree,id,isChecked);
+        this.setState({treeData:dataTree});
+    }
 
     renderTreeView = (data) => {
         return data.map((value)=>{
@@ -50,7 +86,10 @@ class checkBoxTree extends Component {
                 <li key={value.id}>
                     
                     <label className="container">
-                    <input type="checkbox"/>
+                    <input id={value.id} name={value.name} type="checkbox" className="checkmark" 
+                    value={value.name || ''}
+                    checked={value.isChecked ? value.isChecked : false } 
+                    onChange={(event)=>{this.onCheckBoxChange(value.id, event.target.checked)}}/>
                     <span className="checkmark"></span>
                     </label>
 
@@ -65,7 +104,10 @@ class checkBoxTree extends Component {
                     :
                  <li key={value.id}> 
                     <label className="container">
-                    <input type="checkbox"/>
+                    <input id={value.id} name={value.name} type="checkbox" className="checkmark" 
+                    value={value.name || ''}
+                    checked={value.isChecked ? value.isChecked : false }
+                    onChange={(event)=>{this.onCheckBoxChange(value.id, event.target.checked)}}/>
                     <span className="checkmark"></span>
                     </label>
                  {value.name}</li>

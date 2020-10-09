@@ -20,6 +20,7 @@
 
   .checkmark {
     cursor: pointer;
+    padding-right: 5px;
   }
   .checkmark::before {
     display: block;
