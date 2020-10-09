@@ -47,16 +47,28 @@ class checkBoxTree extends Component {
     renderTreeView = (data) => {
         return data.map((value)=>{
             return  value.nodes ?
-                <li key={value.id}><span className="caret">{value.name}
+                <li key={value.id}>
+                    
+                    <label className="container">
+                    <input type="checkbox"/>
+                    <span className="checkmark"></span>
+                    </label>
+
+                    <span className="caret">{value.name}
                     </span>
                     {value.nodes && 
-                        <ul className="nested">
+                        <ul className="nested ul-nostyle">
                             {this.renderTreeView(value.nodes)}
                         </ul>
                         }
                 </li>
                     :
-                 <li key={value.id}> {value.name}</li>
+                 <li key={value.id}> 
+                    <label className="container">
+                    <input type="checkbox"/>
+                    <span className="checkmark"></span>
+                    </label>
+                 {value.name}</li>
         });
     }
 
@@ -64,7 +76,7 @@ class checkBoxTree extends Component {
     render(){
         return (
             <div>
-                <ul>
+                <ul className="ul-nostyle">
                 {this.renderTreeView(this.state.treeData)}
                 </ul>
             </div>

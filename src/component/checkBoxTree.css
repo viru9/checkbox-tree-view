@@ -5,19 +5,22 @@
     -ms-user-select: none; /* IE 10+ */
     user-select: none;
   }
-  
-  .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-  }
-  
  
   .nested {
     display: none;
   }
   
   .active {
+    display: block;
+  }
+
+  .ul-nostyle {
+    list-style-type:none;
+  }
+
+  .checkmark {
+    cursor: pointer;
+  }
+  .checkmark::before {
     display: block;
   }
